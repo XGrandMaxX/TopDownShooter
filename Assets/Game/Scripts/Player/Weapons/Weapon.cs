@@ -1,29 +1,52 @@
+using Game.Scripts.Objects.Projectiles;
+using Game.Scripts.ScriptableObjects;
 using Game.Scripts.Systems;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.OnScreen;
 using Zenject;
 
 namespace Game.Scripts.Player.Weapons
 {
     public abstract class Weapon : MonoBehaviour
     {
-        [SerializeField] private OnScreenStick _screenStick; 
+        public const byte PROJECTILE_PRELOAD_COUNT = 20;
+
+        #region attributes
+        
         [SerializeField] private protected Transform _firePoint;
         [Min(0), SerializeField] protected internal float _attackRate;
-
-        private Vector3 _mousePosition;
-        private InputActions _inputActions;
-
+        
         private protected bool _attacking;
         private float _nextAttackTime;
+        
+        private InputActions _inputActions;
+        private ProjectileData _projectileData;
+
+        #endregion
+
+        #region ProjectilePool
+
+        private ObjectPool<PlayerProjectile> _projectilePool;
+
+        #endregion
+
 
         [Inject]
-        private void Construct(InputController inputController)
+        private void Construct(InputController inputController, ProjectileData projectileData)
         {
             _inputActions = inputController.InputActions;
             _inputActions.Player.Shoot.performed += Shoot;
             _inputActions.Player.Shoot.canceled += CancelShoot;
+
+            _projectileData = projectileData;
+
+            _projectilePool = new ObjectPool<PlayerProjectile>(
+                Preload,
+                GetAction,
+                ReturnAction,
+                PROJECTILE_PRELOAD_COUNT);
+            
+            Debug.Log($"weapon - {name} successfully initialize!");
         }
 
         private void OnDisable()
@@ -41,11 +64,9 @@ namespace Game.Scripts.Player.Weapons
             _attacking = true;
             
             _nextAttackTime = Time.time + 1.0f / _attackRate;
-            Debug.Log("SHOOT");
         }
-
-        //WIP
-        protected virtual void RotateRifle()
+        
+        protected virtual void RotateWeapon()
         {
             Vector2 direction = _inputActions.Player.Move.ReadValue<Vector2>().normalized;
             
@@ -56,5 +77,20 @@ namespace Game.Scripts.Player.Weapons
         }
 
         private void CancelShoot(InputAction.CallbackContext obj) => _attacking = false;
+
+        private PlayerProjectile Preload()
+            => Instantiate(_projectileData.ProjectilePrefab, transform, true);
+
+        private void ReturnAction(PlayerProjectile playerProjectile)
+            => playerProjectile.gameObject.SetActive(false);
+
+        private void GetAction(PlayerProjectile playerProjectile)
+        {
+            playerProjectile.transform.SetPositionAndRotation(
+                _firePoint.position,
+                transform.rotation);
+            
+            playerProjectile.gameObject.SetActive(true);
+        }
     }
 }

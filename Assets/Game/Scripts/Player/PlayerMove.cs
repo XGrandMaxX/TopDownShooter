@@ -7,7 +7,7 @@ namespace Game.Scripts.Player
     [RequireComponent(
         typeof(Rigidbody2D),
         typeof(Animator))]
-    public class PlayerMove : MonoBehaviour
+    public sealed class PlayerMove : MonoBehaviour
     {
         [SerializeField] private float _speed;
         
