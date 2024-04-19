@@ -12,12 +12,13 @@ GameObject:
   - component: {fileID: 8316475838602369227}
   - component: {fileID: 9215032142700350298}
   - component: {fileID: 7928546422459792290}
-  m_Layer: 0
+  - component: {fileID: 3162204698012427381}
+  m_Layer: 6
   m_Name: RifleProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8660623970612382318
 Transform:
@@ -46,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e281a83098cc6c8449004f30244b5091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <LifeTime>k__BackingField: 2
+  _rigidbody2D: {fileID: 3162204698012427381}
+  _projectileData: {fileID: 11400000, guid: c0fbdde8ae2c43849820ae6aeb51a360, type: 2}
 --- !u!212 &9215032142700350298
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -133,3 +137,30 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.47
+--- !u!50 &3162204698012427381
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5748468324739566317}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

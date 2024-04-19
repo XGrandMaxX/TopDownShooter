@@ -6,9 +6,9 @@ namespace Game.Scripts.Enemies
     //TODO: install this entity and inject to needed classes
     public class EnemyListener
     {
-        private List<IEnemy> _enemies;
+        private List<EnemyData> _enemies;
 
-        public void Subscribe(IEnemy enemy)
+        public void Subscribe(EnemyData enemy)
         {
             if(_enemies.Contains(enemy))
                 return;
@@ -17,7 +17,7 @@ namespace Game.Scripts.Enemies
             enemy.OnDied += Unsubscribe;
         }
 
-        private void Unsubscribe(IEnemy enemy)
+        private void Unsubscribe(EnemyData enemy)
         {
             _enemies.Remove(enemy);
             
