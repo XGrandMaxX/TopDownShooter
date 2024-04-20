@@ -1,14 +1,19 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Game.Scripts.Enemies
 {
-    //TODO: install this entity and inject to needed classes
-    public class EnemyListener
+    public sealed class EnemyListener
     {
-        private List<IEnemy> _enemies;
+        public event Action<int> OnEnemyDied;
+        
+        private List<EnemyData> _enemies = new(2);
+        private EnemySpawner _enemySpawner;
 
-        public void Subscribe(IEnemy enemy)
+        public EnemyListener() => _enemySpawner = Object.FindObjectOfType<EnemySpawner>();
+
+        public void Subscribe(EnemyData enemy)
         {
             if(_enemies.Contains(enemy))
                 return;
@@ -17,11 +22,16 @@ namespace Game.Scripts.Enemies
             enemy.OnDied += Unsubscribe;
         }
 
-        private void Unsubscribe(IEnemy enemy)
+        private void Unsubscribe(EnemyData enemy)
         {
+            OnEnemyDied?.Invoke(enemy.PointsOnDeath);
+            
             _enemies.Remove(enemy);
             
-            Object.Destroy(enemy.gameObject);
+            enemy.gameObject.SetActive(false);
+            
+            _enemySpawner._enemyPool.Return(enemy);
+            _enemySpawner.currentEnemyInPool -= 1;
         }
     }
 }

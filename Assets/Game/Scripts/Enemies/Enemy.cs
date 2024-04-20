@@ -1,39 +1,50 @@
-using System;
-using Game.Scripts.ScriptableObjects.Enemy;
+using Game.Scripts.Player;
 using UnityEngine;
-using Zenject;
 
 namespace Game.Scripts.Enemies
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class Enemy : MonoBehaviour, IEnemy
+    public sealed class Enemy : EnemyData
     {
-        public event Action<IEnemy> OnDied;
-            
-        private EnemyData _enemyData;
-        private Rigidbody2D _rigidbody2D;
-
-        [Inject]
-        private void Construct(EnemyData enemyData)
+        protected internal override void Initialize(byte health)
         {
-            _enemyData = enemyData;
-
+            Health = health;
+            
             _rigidbody2D = GetComponent<Rigidbody2D>();
+            _animator = GetComponent<Animator>();
+            _chaseTarget = FindObjectOfType<PlayerMove>().transform;
+        }
+
+        private void Update()
+        {
+            if(_chaseTarget != null)
+                ChaseThePlayer();
         }
         
-        public void Attack()
+        protected internal override void ChaseThePlayer()
         {
-            throw new System.NotImplementedException();
+            _moveDirection = (_chaseTarget.position - transform.position).normalized;
+            
+            AnimateMove();
+            
+            transform.position = Vector2.MoveTowards(
+                transform.position, 
+                _chaseTarget.position, 
+                MoveSpeed * Time.deltaTime);
+        }
+        
+        private void AnimateMove()
+        {
+            _animator.SetFloat("MoveX", _moveDirection.x);
+            _animator.SetFloat("MoveY", _moveDirection.y);
         }
 
-        public void TakeDamage(byte amount)
+        protected internal override void TakeDamage(byte amount)
         {
-            _enemyData.Health -= amount;
+            Health -= amount;
 
-            if (_enemyData.Health <= 0)
+            if (Health <= 0)
                 Die();
         }
-
-        private void Die() => OnDied?.Invoke(this);
     }
 }

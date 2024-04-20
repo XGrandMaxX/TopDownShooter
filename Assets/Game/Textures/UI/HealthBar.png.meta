@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0999ec0f76032b148a05e45d119c10ce
+guid: ff0e3f4d7bf85a940b1b687ca187df2d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 75
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -69,12 +69,12 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 3
+    textureCompression: 1
     compressionQuality: 50
-    crunchedCompression: 1
+    crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
     ignorePlatformSupport: 0
@@ -136,13 +136,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: '[SINGLE_SHOT] Assault_rifle_V1.00_0'
+      name: HealthBar_1
       rect:
         serializedVersion: 2
-        x: 3
-        y: 9
-        width: 83
-        height: 28
+        x: 42
+        y: 50
+        width: 10
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -150,8 +150,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c0b86dccf60403848b45ebb0a4a98e77
-      internalID: 1888564073
+      spriteID: a96d0cafbeb2a554ca4b8685933ee24b
+      internalID: -1932045940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealthBar_0
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 47
+        width: 18
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ddae210d1dc08c4ca71e032d0484c12
+      internalID: -1696585064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealthBar_2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 63
+        width: 10
+        height: 67
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69f5e2fd81978d5409c49d197dc2d1dd
+      internalID: -424141295
       vertices: []
       indices: 
       edges: []
@@ -167,7 +209,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      '[SINGLE_SHOT] Assault_rifle_V1.00_0': -1067108651
+      HealthBar_0: -1696585064
+      HealthBar_1: -1932045940
+      HealthBar_2: -424141295
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
