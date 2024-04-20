@@ -12,6 +12,7 @@ namespace Game.Scripts.Player.Weapons
 
         #region attributes
         
+        [SerializeField] private Transform _parentObject;
         [SerializeField] private protected Transform _firePoint;
         [Min(0), SerializeField] protected internal float _attackRate;
         
@@ -21,6 +22,7 @@ namespace Game.Scripts.Player.Weapons
         private InputActions _inputActions;
         private ProjectileData _projectileData;
         private ProjectileListener _projectileListener;
+        private SpriteRenderer _spriteRenderer;
 
         private Vector2 _lastRotatePosition;
 
@@ -28,7 +30,7 @@ namespace Game.Scripts.Player.Weapons
 
         #region ProjectilePool
 
-        internal ObjectPool<PlayerProjectile> _projectilePool;
+        internal ObjectPool<PlayerProjectile> _projectilePool { get; private set;  }
 
         #endregion
 
@@ -52,11 +54,10 @@ namespace Game.Scripts.Player.Weapons
                 GetAction,
                 ReturnAction,
                 PROJECTILE_PRELOAD_COUNT);
-            
-            Debug.Log($"weapon - {name} successfully initialize!");
+
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
-
-
+        
         protected virtual void Shoot()
         {
             if(Time.time < _nextAttackTime)
@@ -78,7 +79,14 @@ namespace Game.Scripts.Player.Weapons
 
             if (direction.magnitude > 0)
                 _lastRotatePosition = direction;
-            
+
+            _spriteRenderer.flipY = direction.x switch
+            {
+                < 0 => true,
+                > 0 => false,
+                _ => _spriteRenderer.flipY,
+            };
+
             float angle = Mathf.Atan2(_lastRotatePosition.y, _lastRotatePosition.x) * Mathf.Rad2Deg;
 
             Quaternion targetRotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -89,7 +97,11 @@ namespace Game.Scripts.Player.Weapons
         
         #region ProjectilePoolMethods
         
-        private PlayerProjectile Preload() => Instantiate(_projectileData.ProjectilePrefab);
+        private PlayerProjectile Preload() 
+            => Instantiate(
+                _projectileData.ProjectilePrefab,
+                _parentObject, 
+                true);
 
         private void ReturnAction(PlayerProjectile playerProjectile) 
             => playerProjectile.gameObject.SetActive(false);

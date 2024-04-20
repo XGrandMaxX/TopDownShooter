@@ -11,8 +11,6 @@ namespace Game.Scripts.Systems
         {
             _inputActions = new InputActions();
             _inputActions.Enable();
-            
-            Debug.Log("InputController successfully initialize!");
         }
 
         ~InputController() => _inputActions.Disable();

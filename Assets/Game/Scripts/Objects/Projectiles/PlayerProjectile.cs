@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Game.Scripts.Objects.Projectiles
 {
     [RequireComponent(typeof(Rigidbody2D))]
-    public class PlayerProjectile : MonoBehaviour, IProjectile
+    public sealed class PlayerProjectile : MonoBehaviour, IProjectile
     {
         public event Action<PlayerProjectile> OnDestroy;
         
@@ -22,7 +22,7 @@ namespace Game.Scripts.Objects.Projectiles
             _rigidbody2D.velocity = direction.normalized * _projectileData.Speed;
         }
 
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.TryGetComponent(out EnemyData enemy))
                 enemy.TakeDamage(_projectileData.Damage);

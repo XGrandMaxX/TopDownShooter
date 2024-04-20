@@ -6,7 +6,7 @@ namespace Game.Scripts.Objects.Projectiles
 {
     public sealed class ProjectileListener
     {
-        private List<PlayerProjectile> _projectiles = new(2);
+        private List<PlayerProjectile> _projectiles = new(20);
         private Weapon _weapon;
 
         public ProjectileListener() => _weapon = Object.FindObjectOfType<Weapon>();
@@ -23,6 +23,8 @@ namespace Game.Scripts.Objects.Projectiles
 
         private void Unsubscribe(PlayerProjectile projectile)
         {
+            projectile.OnDestroy -= Unsubscribe;
+            
             _projectiles.Remove(projectile);
             
             projectile.gameObject.SetActive(false);

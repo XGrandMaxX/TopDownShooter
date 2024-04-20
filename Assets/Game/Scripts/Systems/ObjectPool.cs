@@ -5,12 +5,12 @@ namespace Game.Scripts.Systems
 {
     public sealed class ObjectPool<T>
     {
-        private Queue<T> _pool = new();
-        private List<T> _active = new();
+        private readonly Queue<T> _pool = new();
+        private readonly List<T> _active = new();
 
-        private Func<T> _preloadFunc;
-        private Action<T> _getAction;
-        private Action<T> _returnAction;
+        private readonly Func<T> _preloadFunc;
+        private readonly Action<T> _getAction;
+        private readonly Action<T> _returnAction;
 
         public ObjectPool(
             Func<T> preloadFunc,

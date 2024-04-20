@@ -14,8 +14,15 @@ namespace Game.Scripts.Enemies
 
         [SerializeField] protected internal int PointsOnDeath;
 
+        protected Transform _chaseTarget;
+        protected Animator _animator;
+        protected Vector2 _moveDirection;
+        
+        protected internal abstract void Initialize(byte health);
         protected internal abstract void TakeDamage(byte amount);
-        protected internal abstract void Attack();
+        protected internal abstract void ChaseThePlayer();
         protected void Die() => OnDied?.Invoke(this);
+        
+        protected Rigidbody2D _rigidbody2D;
     }
 }
