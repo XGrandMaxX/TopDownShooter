@@ -1,7 +1,3 @@
-using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
-
 namespace Game.Scripts.Systems
 {
     public sealed class InputController
@@ -13,8 +9,6 @@ namespace Game.Scripts.Systems
         {
             _inputActions = new InputActions();
             _inputActions.Enable();
-            
-            Debug.Log("InputController successfully initialize!");
         }
 
         ~InputController() => _inputActions.Disable();
