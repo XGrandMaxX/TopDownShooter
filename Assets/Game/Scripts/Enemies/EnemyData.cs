@@ -7,13 +7,15 @@ namespace Game.Scripts.Enemies
     {
         protected internal event Action<EnemyData> OnDied;
         
+        protected internal AudioSource _audioSource;
+        
         [SerializeField] protected internal byte Health;
         
         [SerializeField] protected internal byte MoveSpeed;
         [SerializeField] protected internal byte Damage;
 
         [SerializeField] protected internal int PointsOnDeath;
-
+        
         protected Transform _chaseTarget;
         protected Animator _animator;
         protected Vector2 _moveDirection;

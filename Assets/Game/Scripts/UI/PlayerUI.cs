@@ -31,18 +31,8 @@ namespace Game.Scripts.UI
         private void DisplayHealth(byte health) 
             => _healthImage.fillAmount = (float)health / PlayerCollision.MaxHealth;
 
-        private void EnableGameOverPanel()
-        {
-            _gameOverPanel.gameObject.SetActive(true);
-            
-            TimeScaleController.PauseGame();
-        }
+        private void EnableGameOverPanel() => _gameOverPanel.gameObject.SetActive(true);
 
-        private void GoToMenu()
-        {
-            TimeScaleController.UnpauseGame();
-            
-            SceneManager.LoadScene(0);
-        }
+        private void GoToMenu() => SceneManager.LoadScene(0);
     }
 }

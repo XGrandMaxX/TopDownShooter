@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Game.Scripts.Installers
 {
-    public class ListenersInstaller : MonoInstaller
+    public sealed class ListenersInstaller : MonoInstaller
     {
         public override void InstallBindings() => Bind();
 

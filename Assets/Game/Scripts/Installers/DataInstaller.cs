@@ -4,11 +4,11 @@ using Zenject;
 
 namespace Game.Scripts.Installers
 {
-    public class DataInstaller : MonoInstaller
+    public sealed class DataInstaller : MonoInstaller
     {
         [SerializeField] private ProjectileData _projectileData;
         public override void InstallBindings() => Bind();
 
-        private void Bind() =>  Container.BindInstance(_projectileData).AsTransient();
+        private void Bind() => Container.BindInstance(_projectileData).AsTransient();
     }
 }

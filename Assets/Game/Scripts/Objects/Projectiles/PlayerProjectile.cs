@@ -2,6 +2,7 @@ using System;
 using Game.Scripts.Enemies;
 using Game.Scripts.ScriptableObjects;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Game.Scripts.Objects.Projectiles
 {
@@ -12,6 +13,7 @@ namespace Game.Scripts.Objects.Projectiles
         
         [field: SerializeField] public byte LifeTime { get; private set;  }
         
+        [SerializeField] private AudioSource _shootSource;
         [SerializeField] private Rigidbody2D _rigidbody2D;
         [SerializeField] private ProjectileData _projectileData;
         public void Launch(Quaternion weaponRotation)

@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace Game.Scripts.Systems
 {
     public sealed class InputController

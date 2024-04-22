@@ -9,10 +9,11 @@ namespace Game.Scripts.Enemies
         protected internal override void Initialize(byte health)
         {
             Health = health;
-            
+
+            _audioSource = GetComponent<AudioSource>();
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
-            _chaseTarget = FindObjectOfType<PlayerMove>().transform;
+            _chaseTarget ??= FindObjectOfType<PlayerMove>().transform;
         }
 
         private void Update()
@@ -42,7 +43,7 @@ namespace Game.Scripts.Enemies
         protected internal override void TakeDamage(byte amount)
         {
             Health -= amount;
-
+            
             if (Health <= 0)
                 Die();
         }
